@@ -1,0 +1,15 @@
+#!/bin/bash
+REAL_PATH=$(realpath $0)
+ROOT_DIR=$(dirname "$REAL_PATH")
+WORK_DIR=$(PWD)
+case $1 in
+    go)
+        CTX_DIR="$ROOT_DIR/go"
+        IMGNAME="vimenv:go"
+        ;;
+    *)
+        echo "environment $1 not supported"
+        exit 1;
+esac
+
+docker build -t $IMGNAME $CTX_DIR && docker run -it -v $WORK_DIR:/src $IMGNAME
