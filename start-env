@@ -7,6 +7,10 @@ case $1 in
         CTX_DIR="$ROOT_DIR/go"
         IMGNAME="vimenv:go"
         ;;
+    python)
+        CTX_DIR="$ROOT_DIR/python"
+        IMGNAME="vimenv:python"
+        ;;
     *)
         echo "environment $1 not supported"
         exit 1;
