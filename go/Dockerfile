@@ -25,11 +25,14 @@ RUN     vim +GoInstallBinaries +qa
 FROM base AS ncoc-install
 RUN apk add yarn
 COPY plugins.vim /root/.vimrc
-COPY coc-settings.json /root/.vim/coc-settings.json
 COPY --from=plugins /root/.vim/bundle/coc.nvim /root/.vim/bundle/coc.nvim
 RUN vim -c 'CocInstall -sync coc-go coc-html coc-css coc-json|qa'
 
+FROM base
+
+COPY coc-settings.json /root/.vim/coc-settings.json
 COPY --from=plugins /root/.vim/bundle /root/.vim/bundle
+COPY --from=plugins /root/.vim/bundle/coc.nvim /root/.vim/bundle/coc.nvim
 COPY --from=go-vim-install /go/bin /go/bin
 COPY vimrc /root/.vimrc
 
